@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Dream Makeover - Luxury styling & personal branding for founders. Transform your look and presence.">
+<meta name="keywords" content="makeover, founder, personal branding, luxury styling, grooming">
+<meta name="author" content="Dream Makeover">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dream Makeover</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a, #1a1a1a);
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .hero {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 60px 10% 40px;
+            min-height: 100vh;
+        }
+
+        .hero-text {
+            max-width: 45%;
+            margin-top: -30px;
+        }
+
+        .hero-text h1 {
+            font-size: 3rem;
+            color: #ffb6c1;
+            text-shadow: 0 0 20px #ffb6c1aa;
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            color: #ccc;
+            margin-bottom: 30px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            background: transparent;
+            border: 2px solid #ffb6c1;
+            color: #ffb6c1;
+            padding: 12px 28px;
+            font-size: 1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: 0.4s ease;
+            min-width: 150px;
+        }
+
+        button:hover {
+            background: #ffb6c1;
+            color: #0a0a0a;
+            box-shadow: 0 0 20px #ffb6c1;
+            transform: scale(1.05);
+        }
+
+        .hero-image {
+            width: 45%;
+            margin-top: -50px;
+        }
+
+        .hero-image img {
+            width: 100%;
+            border-radius: 50%;
+            box-shadow: 0 0 40px 10px rgba(255, 182, 193, 0.3);
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .form-box {
+            background: #1c1c1c;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 0 30px #ffb6c1aa;
+            width: 320px;
+        }
+
+        .form-box h2 {
+            color: #ffb6c1;
+            margin-bottom: 20px;
+        }
+
+        .form-box input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ffb6c1;
+            border-radius: 10px;
+            background: #0a0a0a;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .form-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .form-buttons button {
+            flex: 1;
+            padding: 10px 0;
+            border-radius: 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        .form-buttons button:first-child {
+            background: #ffb6c1;
+            color: #0a0a0a;
+            border: none;
+        }
+
+        .form-buttons button:first-child:hover {
+            background: #ff80a1;
+            box-shadow: 0 0 10px #ffb6c1;
+        }
+
+        .form-buttons .close-btn {
+            background: transparent;
+            color: #ffb6c1;
+            border: 2px solid #ffb6c1;
+        }
+
+        .form-buttons .close-btn:hover {
+            background: #ffb6c1;
+            color: #0a0a0a;
+        }
+
+        /* #ratingsContainer {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+            max-height: 650px;
+            overflow-y: auto;
+            padding-right: 10px;
+            scroll-behavior: smooth;
+        } 
+
+
+
+
+        .rating-card {
+            background: #1a1a1a;
+            border: 1px solid #ffb6c1;
+            border-radius: 15px;
+            padding: 15px;
+            width: 80%;
+            max-width: 600px;
+            color: #fff;
+        }
+
+        .rating-card h3 {
+            color: #ffb6c1;
+            margin: 0 0 5px 0;
+        } */
+
+
+
+       /* Ratings container */
+#ratingsContainer {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    max-height: 650px;
+    overflow-y: auto;
+    padding-right: 10px;
+    scroll-behavior: smooth; /* smooth scroll */
+    
+    /* Add subtle shadow/fade effect */
+    position: relative;
+}
+
+#ratingsContainer::before,
+#ratingsContainer::after {
+    content: "";
+    position: sticky;
+    left: 0;
+    right: 0;
+    height: 30px;
+    pointer-events: none;
+    z-index: 5;
+}
+
+#ratingsContainer::before {
+    top: 0;
+    background: linear-gradient(to bottom, #111 0%, rgba(17,17,17,0) 100%);
+}
+
+#ratingsContainer::after {
+    bottom: 0;
+    background: linear-gradient(to top, #111 0%, rgba(17,17,17,0) 100%);
+}
+
+/* Custom Scrollbar - Pink luxury theme */
+#ratingsContainer::-webkit-scrollbar {
+    width: 10px;
+}
+
+#ratingsContainer::-webkit-scrollbar-track {
+    background: #111;
+    border-radius: 10px;
+}
+
+#ratingsContainer::-webkit-scrollbar-thumb {
+    background: #ffb6c1;
+    border-radius: 10px;
+    box-shadow: inset 0 0 5px #ff80a1;
+    transition: background 0.3s ease;
+}
+
+#ratingsContainer::-webkit-scrollbar-thumb:hover {
+    background: #ff80a1;
+}
+
+ /*Firefox support*/
+/* #ratingsContainer {
+    scrollbar-width: thin;
+    scrollbar-color: #ffb6c1 #111;
+} */
+
+/* Optional: subtle transition for rating cards */
+/* .rating-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.rating-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 20px rgba(255,182,193,0.4);
+} */
+
+.rating-card {
+    background: linear-gradient(145deg, #1a1a1a, #222); /* subtle gradient */
+    border: 1px solid #ffb6c1;
+    border-radius: 20px;
+    padding: 20px 25px;
+    width: 80%;
+    max-width: 600px;
+    color: #fff;
+    box-shadow: 0 4px 20px rgba(255, 182, 193, 0.3); /* soft glow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+/* Hover effect */
+.rating-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(255, 182, 193, 0.5); /* more glow on hover */
+    background: linear-gradient(145deg, #1c1c1c, #2a2a2a);
+}
+
+/* Name styling */
+.rating-card h3 {
+    color: #ffb6c1;
+    margin: 0 0 8px 0;
+    font-size: 1.2rem;
+    letter-spacing: 0.5px;
+}
+
+/* Stars */
+.rating-card p:first-of-type {
+    color: #ffdf80;
+    font-size: 1.1rem;
+    margin: 5px 0;
+}
+
+/* Feedback message */
+.rating-card p:last-of-type {
+    color: #ccc;
+    font-size: 1rem;
+    margin: 8px 0 10px 0;
+    line-height: 1.4;
+}
+
+/* Date styling */
+.rating-card small {
+    color: #888;
+    font-size: 0.8rem;
+}
+
+
+/* 💖 Floating Contact Us Button */
+.floating-contact {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: linear-gradient(135deg, #ff69b4, #ff1493);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 15px 28px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 0 25px rgba(255, 105, 180, 0.6);
+  transition: all 0.3s ease-in-out;
+  z-index: 1000;
+}
+
+
+.floating-contact:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 35px rgba(255, 182, 193, 0.9);
+  background: linear-gradient(135deg, #ff1493, #ff69b4);
+}
+
+
+/* 💚 Floating WhatsApp Button Style */
+.floating-whatsapp {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #25d366;
+  color: #fff;
+  font-weight: 600;
+  padding: 12px 20px;
+  border-radius: 50px;
+  text-decoration: none;
+  box-shadow: 0 0 25px rgba(37, 211, 102, 0.6);
+  transition: all 0.3s ease;
+  animation: bounce 2.5s infinite;
+  z-index: 9999;
+}
+
+
+.floating-whatsapp img {
+  width: 28px;
+  height: 28px;
+  filter: drop-shadow(0 0 5px rgba(255,255,255,0.6));
+}
+
+.floating-whatsapp span {
+  font-size: 16px;
+  letter-spacing: 0.5px;
+}
+
+/* Hover effect */
+.floating-whatsapp:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 35px rgba(37, 211, 102, 0.9);
+}
+
+
+    </style>
+</head>
+
+<body>
+    <section class="hero">
+        <div class="hero-text">
+            <h1>✨ Dream Makeover ✨</h1>
+            <p>Where elegance meets perfection — your transformation starts here.</p>
+            <div class="buttons">
+                <button onclick="openPopup('booking')">Book Now</button>
+                <button onclick="openPopup('rating')">Rate Us ⭐</button>
+                <button onclick="window.location.href='services.html'">Our Services</button>
+                <button onclick="window.location.href='about.html'">About Us</button>
+            </div>
+        </div>
+
+
+        <a href="https://wa.me/918909087801?text=Hello%20Dream%20Makeover!%20I%20want%20to%20know%20more%20about%20your%20services.%20💖"
+   target="_blank"
+   class="floating-whatsapp">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+  <span>Contact Us</span>
+</a>
+
+
+
+
+
+
+
+        <div class="hero-image">
+            <img src="groom-makeover.jpg" alt="Beauty Queen">
+        </div>
+    </section>
+
+    <section id="ratingsSection" style="padding:50px 10%; background:#111; text-align:center;">
+        <h2 style="color:#ffb6c1;">💖 What Our Clients Say 💖</h2>
+        <div id="ratingsContainer"></div>
+    </section>
+
+    <div class="popup" id="bookingPopup">
+        <div class="form-box">
+            <h2>Book Your Appointment</h2>
+            <input type="text" id="name" placeholder="Your Name" />
+            <input type="tel" id="phone" placeholder="Phone Number" />
+            <div class="form-buttons">
+                <button onclick="sendBooking()">Submit</button>
+                <button class="close-btn" onclick="closePopup()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="popup" id="ratingPopup">
+        <div class="form-box">
+            <h2>Rate Your Experience</h2>
+            <input type="text" id="r_name" placeholder="Your Name" />
+            <select id="rating">
+                <option value="">Select Stars</option>
+                <option value="5">⭐⭐⭐⭐⭐ Excellent</option>
+                <option value="4">⭐⭐⭐⭐ Very Good</option>
+                <option value="3">⭐⭐⭐ Good</option>
+                <option value="2">⭐⭐ Fair</option>
+                <option value="1">⭐ Poor</option>
+            </select>
+            <textarea id="feedback" placeholder="Your feedback..." rows="3"></textarea>
+            <div class="form-buttons">
+                <button onclick="sendRating()">Submit</button>
+                <button class="close-btn" onclick="closePopup()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openPopup(type) {
+            document.getElementById(type + 'Popup').style.display = 'flex';
+        }
+
+        function closePopup() {
+            document.getElementById('bookingPopup').style.display = 'none';
+            document.getElementById('ratingPopup').style.display = 'none';
+        }
+
+        function sendBooking() {
+            const name = document.getElementById('name').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            if (!name || !phone) {
+                alert('Please fill in all fields!');
+                return;
+            }
+            window.open(`https://wa.me/918909087801?text=New Booking from Dream Makeover ${name}, Phone: ${phone}`, '_blank');
+            closePopup();
+        }
+
+        async function sendRating() {
+            const name = document.getElementById('r_name').value.trim();
+            const stars = parseInt(document.getElementById('rating').value);
+            const message = document.getElementById('feedback').value.trim();
+            if (!name || !stars) {
+                alert('Please enter name and rating!');
+                return;
+            }
+            try {
+                const res = await fetch('http://localhost:5000/api/ratings', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, stars, message })
+                });
+                const result = await res.json();
+                alert(result.message || '⭐ Thank you for your feedback!');
+                
+                
+                closePopup();
+                loadRatings();
+            } catch (e) {
+                console.error(e);
+                alert('❌ Failed to submit rating.');
+            }
+        }
+
+        async function loadRatings() {
+            try {
+                const res = await fetch('http://localhost:5000/api/ratings');
+                const ratings = await res.json();
+                const container = document.getElementById('ratingsContainer');
+                container.innerHTML = '';
+
+                let avgText = document.getElementById('averageRatingText');
+                if (!avgText) {
+                    avgText = document.createElement('p');
+                    avgText.id = 'averageRatingText';
+                    avgText.style.color = '#ffdf80';
+                    avgText.style.fontSize = '1.2rem';
+                    avgText.style.marginTop = '10px';
+                    container.parentNode.insertBefore(avgText, container);
+                }
+
+                if (!ratings || ratings.length === 0) {
+                    avgText.textContent = "No ratings yet. Be the first to rate us! 💫";
+                    container.innerHTML = '<p>No ratings yet.</p>';
+                    return;
+                }
+
+                const totalStars = ratings.reduce((sum, r) => sum + (r.stars || r.rating || 0), 0);
+                const avg = (totalStars / ratings.length).toFixed(1);
+                avgText.innerHTML = ` ⭐ <strong>${avg}</strong> / 5 from ${ratings.length} clients`;
+
+                ratings.forEach(r => {
+                    const div = document.createElement('div');
+                    div.className = 'rating-card';
+                    div.innerHTML = `
+                        <h3>${r.name || 'Anonymous'}</h3>
+                        <p>${'⭐'.repeat(r.stars || r.rating || 0)}</p>
+                        <p>${r.message || r.review || ''}</p>
+                        <small>${new Date(r.date).toLocaleDateString()}</small>
+                    `;
+                    container.appendChild(div);
+                });
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        window.onload = loadRatings;
+    </script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+

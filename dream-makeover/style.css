@@ -1,0 +1,267 @@
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: radial-gradient(circle at top left, #250018, #000);
+  color: #fff;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  padding: 30px 10px;
+  background: linear-gradient(90deg, #ff1493, #e60073);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+header h1 {
+  font-size: 2rem; /* Bigger text */
+  font-weight: 900; /* Extra bold */
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 0 0 25px #ff1493, 0 0 40px #ff69b4; /* Pink glow */
+  color: #fff;
+}
+
+header p {
+  font-size: 1.2rem;
+  color: #ffb6c1;
+  margin-top: 10px;
+}
+
+.services {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 30px;
+  padding: 40px;
+}
+
+.service-card {
+  background: rgba(255, 20, 147, 0.1);
+  border: 2px solid #ff69b4;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 0 15px rgba(255, 20, 147, 0.4);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.service-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px #ff1493;
+}
+
+.img-wrap {
+  width: 150px;
+  height: 220px;
+  margin: 0 auto;
+  border-radius: 50% / 40%;
+  overflow: hidden;
+  border: 3px solid #ff69b4;
+  box-shadow: 0 0 10px #ff69b4;
+}
+
+.img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.book-btn {
+  background: #ff1493;
+  border: none;
+  color: white;
+  margin-top: 10px;
+  padding: 10px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.book-btn:hover {
+  background: #ff69b4;
+  box-shadow: 0 0 10px #ff69b4;
+}
+
+
+.map iframe {
+  width: 100%;
+  height: 200px;
+  border: 0;
+}
+.map {
+  background: rgba(255, 20, 147, 0.05);
+  margin: 20px;
+  padding: 15px;
+  border-radius: 20px;
+  box-shadow: 0 0 20px rgba(255, 105, 180, 0.3);
+}
+
+
+footer {
+  background: #0a0a0a;
+  color: #ff69b4;
+  padding: 15px;
+}
+
+
+
+/* ❤️ Floating Hearts Animation */
+.hearts-container {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  z-index: 0; /* ताकि hearts background में रहें */
+}
+
+.heart {
+  position: absolute;
+  bottom: 0;
+  background-color: #ff4b6e;
+  width: 20px;
+  height: 20px;
+  transform: rotate(45deg);
+  animation: float 5s linear infinite;
+}
+
+.heart::before,
+.heart::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: #ff4b6e;
+  border-radius: 50%;
+}
+
+.heart::before {
+  top: -10px;
+  left: 0;
+}
+
+.heart::after {
+  left: -10px;
+  top: 0;
+}
+
+/* 💬 Contact section - Centered perfectly */
+.contact {
+  display: flex;
+  justify-content: center;   /* Horizontally center */
+  align-items: center;      /* Vertically center
+  height: 100vh;             /* Full screen height */
+}
+
+/* 💚 WhatsApp button */
+
+.whatsapp {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #25D366;
+  color: white;
+  text-decoration: none;
+  padding: 10px 20px;       /* 🔹 थोड़ा ज्यादा padding */
+  border-radius: 25px;
+  font-size: 1rem;          /* 🔹 थोड़ा बड़ा font */
+  line-height: 1.6;         /* 🔹 letter height बढ़ाई गई */
+  font-weight: 600;
+  width: 190px;
+  box-shadow: 0 0 10px rgba(37, 211, 102, 0.4);
+  transition: all 0.3s ease;
+}
+
+
+.whatsapp:hover {
+  box-shadow: 0 0 18px rgba(37, 211, 102, 0.7);
+  transform: scale(1.08);
+}
+
+/* 👤 Profile photo inside button */
+.whatsapp-photo {
+  width: 35px;
+  height: 56px;
+  border-radius: 50%;
+  margin-right: 8px;
+  border: 1.5px solid #fff;
+  object-fit: cover;
+}
+
+.whatsapp img {
+  pointer-events: none;   /* ✅ यह line image को “unclickable” बना देगी */
+}
+
+.form-popup {
+  display: none;
+  position: fixed;
+  bottom: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(145deg, #fff0f5, #ffe6f0);
+  border: 2px solid #f7b6c2;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(255, 182, 193, 0.5);
+  z-index: 999;
+  padding: 20px 30px;
+  width: 90%;
+  max-width: 350px;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-container h2 {
+  color: #e91e63;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.form-container input {
+  margin: 8px 0;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.form-container .btn {
+  background-color: #e91e63;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.form-container .btn.cancel {
+  background-color: gray;
+}
+
+
+
+@keyframes float {
+  0% {
+    transform: translateY(0) rotate(45deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) rotate(45deg);
+    opacity: 0;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+

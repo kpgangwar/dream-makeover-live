@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us | Dream Makeover</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: radial-gradient(circle at top left, #1a0012, #000);
+      color: #fff;
+      overflow-x: hidden;
+    }
+    
+
+    /* 🌸 Navbar */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(10px);
+      padding: 15px 10%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 999;
+    }
+
+    nav .logo {
+      font-size: 1.5rem;
+      color: #ffb6c1;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    nav a {
+      color: #ffb6c1;
+      text-decoration: none;
+      margin-left: 60px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    nav a:hover, nav a.active {
+      color: #fff;
+      text-shadow: 0 0 10px #ffb6c1;
+    }
+
+
+    /* 💖 About Section */
+    .about-section {
+      padding: 130px 10% 60px;
+      text-align: center;
+    }
+
+    .about-section h1 {
+      font-size: 2.8rem;
+      color: #ffb6c1;
+      text-shadow: 0 0 25px #ffb6c1;
+      margin-bottom: 20px;
+    }
+
+    .about-section p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: #ddd;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    /* 👩 Founder Section */
+    .founder {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      margin-top: 60px;
+    }
+
+    .founder img {
+      width: 250px;
+      height: 350px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #ffb6c1;
+      box-shadow: 0 0 25px rgba(255, 182, 193, 0.4);
+    }
+
+    .founder-text {
+      max-width: 500px;
+      text-align: left;
+    }
+
+    .founder-text h2 {
+      color: #ffb6c1;
+      margin-bottom: 10px;
+    }
+
+    .founder-text p {
+      color: #ccc;
+      line-height: 1.6;
+    }
+
+    /* ✨ Quote Section */
+    .quote {
+      margin-top: 60px;
+      font-size: 1.3rem;
+      font-style: italic;
+      color: #ffb6c1;
+      text-shadow: 0 0 20px #ff69b4aa;
+    }
+
+    /* 🌸 Footer */
+    footer {
+      background: #0a0a0a;
+      color: #ffb6c1;
+      text-align: center;
+      padding: 20px;
+      margin-top: 80px;
+      border-top: 1px solid #ffb6c155;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- 💎 Navbar -->
+
+
+  <nav>
+    <div class="logo">💖 Dream Makeover 💖</div>
+    <div>
+
+      <a href="index.html">Home</a>
+      <!-- <a href="index.html">gallery</a> -->
+      <a href="services.html">Our Services</a>
+      <a href="about.html" class="active">About</a>
+    </div>
+  </nav>
+
+
+  <!-- 🌸 About Section -->
+  <section class="about-section">
+    <h1>About Dream Makeover</h1>
+    <p>
+      At <b>Dream Makeover</b>, we believe that beauty is not just about appearance — it’s about confidence, grace, and the glow that comes from within.  
+      With years of experience in professional styling and personalized care, our goal is to bring out your best self through elegance and perfection.
+    </p>
+
+    <!-- 👩 Founder Section -->
+    <div class="founder">
+      <img src="images/founder.jpg" alt="Founder of Dream Makeover">
+      <div class="founder-text">
+        <h2>Meet Our Founder</h2>
+        <p>
+          “Transforming beauty with passion and perfection.”  
+          <br><br>
+          Our founder envisioned a space where every client feels special and valued.  
+          From bridal looks to daily beauty care, she and her team ensure every detail is handled with love and expertise.
+        </p>
+      </div>
+    </div>
+
+    <!-- ✨ Inspirational Quote -->
+    <p class="quote">
+      "Elegance begins when you decide to love yourself first." 💖
+    </p>
+  </section>
+
+  <footer>
+    <p>© 2025 Dream Makeover. All Rights Reserved.</p>
+  </footer>
+
+</body>
+</html>
