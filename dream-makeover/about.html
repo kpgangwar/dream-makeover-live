@@ -14,36 +14,35 @@
       overflow-x: hidden;
     }
     
+   nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 90%;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(10px);
+  padding: 15px 5%; /* reduce padding */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 999;
+}
 
-    /* 🌸 Navbar */
-    nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(10px);
-      padding: 15px 10%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 999;
-    }
+nav div {
+  display: flex;
+  gap: 30px;
+  flex-wrap: nowrap;
+}
 
-    nav .logo {
-      font-size: 1.5rem;
-      color: #ffb6c1;
-      font-weight: 700;
-      letter-spacing: 1px;
-    }
+nav a {
+  color: #ffb6c1;
+  text-decoration: none;
+  font-weight: 500;
+  white-space: nowrap; /* text wrap na ho */
+  display: inline-block;
+}
 
-    nav a {
-      color: #ffb6c1;
-      text-decoration: none;
-      margin-left: 60px;
-      font-weight: 500;
-      transition: 0.3s;
-    }
+    
 
     nav a:hover, nav a.active {
       color: #fff;
@@ -53,7 +52,7 @@
 
     /* 💖 About Section */
     .about-section {
-      padding: 130px 10% 60px;
+      padding: 40px 10% 60px;
       text-align: center;
     }
 
@@ -61,7 +60,7 @@
       font-size: 2.8rem;
       color: #ffb6c1;
       text-shadow: 0 0 25px #ffb6c1;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
     }
 
     .about-section p {
@@ -129,7 +128,7 @@
 </head>
 <body>
 
-  <!-- 💎 Navbar -->
+
 
 
   <nav>
@@ -137,9 +136,9 @@
     <div>
 
       <a href="index.html">Home</a>
-      <!-- <a href="index.html">gallery</a> -->
+      <!-- <a href="gallery.html">gallery</a> -->
       <a href="services.html">Our Services</a>
-      <a href="about.html" class="active">About</a>
+      <!-- <a href="about.html" class="active">About</a> -->
     </div>
   </nav>
 
@@ -148,7 +147,7 @@
   <section class="about-section">
     <h1>About Dream Makeover</h1>
     <p>
-      At <b>Dream Makeover</b>, we believe that beauty is not just about appearance — it’s about confidence, grace, and the glow that comes from within.  
+      At <b><b>Dream Makeover</b></b>, we believe that beauty is not just about appearance — it’s about confidence, grace, and the glow that comes from within.  
       With years of experience in professional styling and personalized care, our goal is to bring out your best self through elegance and perfection.
     </p>
 
