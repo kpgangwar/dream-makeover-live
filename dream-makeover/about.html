@@ -4,13 +4,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dream Makeover</title>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-D6N1VERTBW"></script>
+
+<!-- Google Analytics 4 - Force Tracking + Debug + Test Event -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M6MZ9MSR4B"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
+  
+  // GA4 Initialization with Debug Mode
   gtag('js', new Date());
-  gtag('config', 'G-D6N1VERTBW', { 'debug_mode': true });
+  gtag('config', 'G-M6MZ9MSR4B', { 
+    'debug_mode': true,    // DebugView me turant dikhega
+    'send_page_view': true // Pageview automatically track hoga
+  });
+
+  // Test Event
+  gtag('event', 'test_event', {
+    'event_category': 'Testing',
+    'event_label': 'Force snippet active'
+  });
 </script>
+
 
 
 
