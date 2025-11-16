@@ -1,7 +1,0 @@
-[build]
-  publish = "dream-makeover"
-
-[[redirects]]
-  from = "/"
-  to = "/index.html"
-  status = 200
