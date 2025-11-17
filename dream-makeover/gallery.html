@@ -5,14 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gellary</title>
 
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-M6MZ9MSR4B"></script>
+<!-- Google Analytics 4 (GA4) gtag.js -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-2ESKZNY71D"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
+  
+  // Initialize GA4
   gtag('js', new Date());
-  gtag('config', 'G-M6MZ9MSR4B');
+
+  // Configure GA4 with your Measurement ID
+  gtag('config', 'G-2ESKZNY71D', {
+    send_page_view: true // automatically track page views
+  });
 </script>
+
 
 
 
