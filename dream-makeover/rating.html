@@ -155,9 +155,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dream Makeover — Rate Us</title>
-  
-  <!-- GA4 Tracking -->
+
+  <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XWZ3PDFPVN"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -166,6 +165,7 @@
     gtag('config', 'G-XWZ3PDFPVN');
   </script>
 
+  <title>Dream Makeover — Rate Us</title>
   <style>
     body {
       font-family: "Poppins", sans-serif;
@@ -173,9 +173,9 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
+      height: 100vh;
       margin: 0;
-      padding: 20px;
+      padding: 10px;
     }
 
     .card {
@@ -183,8 +183,8 @@
       border-radius: 20px;
       box-shadow: 0 8px 20px rgba(0,0,0,0.1);
       padding: 30px;
-      width: 100%;
-      max-width: 400px;
+      width: 350px;
+      max-width: 100%;
       text-align: center;
       transition: all 0.3s ease;
     }
@@ -205,7 +205,6 @@
       border-radius: 10px;
       border: 1px solid #ddd;
       font-size: 15px;
-      box-sizing: border-box;
     }
 
     textarea {
@@ -235,7 +234,7 @@
   <div class="card">
     <h2>🌸 Rate Dream Makeover 💅</h2>
 
-    <input type="text" id="name" placeholder="Your Name" required />
+    <input type="text" id="name" placeholder="Your Name" />
     <select id="stars">
       <option value="5">⭐⭐⭐⭐⭐ - Excellent</option>
       <option value="4">⭐⭐⭐⭐ - Very Good</option>
@@ -243,16 +242,14 @@
       <option value="2">⭐⭐ - Fair</option>
       <option value="1">⭐ - Poor</option>
     </select>
-    <textarea id="message" rows="4" placeholder="Write your feedback..." required></textarea>
+    <textarea id="message" rows="4" placeholder="Write your feedback..."></textarea>
     <button id="submitBtn">Submit Rating</button>
 
     <div class="message" id="responseMsg"></div>
   </div>
 
   <script>
-    // Mobile & Desktop compatible submit
-    const submitBtn = document.getElementById("submitBtn");
-    submitBtn.addEventListener("click", async function() {
+    async function submitRating() {
       const name = document.getElementById('name').value.trim();
       const stars = document.getElementById('stars').value;
       const message = document.getElementById('message').value.trim();
@@ -265,8 +262,8 @@
       }
 
       try {
-        // Replace this URL with your deployed backend API
-        const res = await fetch("https://dreammakeover-api.onrender.com/api/ratings", {
+        // Replace with your deployed backend/public API URL
+        const res = await fetch("https://your-public-backend.com/api/ratings", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ name, stars, message })
@@ -277,16 +274,15 @@
         if (data.success) {
           responseMsg.textContent = "✅ " + data.message;
           responseMsg.style.color = "green";
+          document.getElementById('name').value = "";
+          document.getElementById('message').value = "";
 
-          // Optional: track event in GA4
+          // GA4 Event Tracking
           gtag('event', 'rating_submitted', {
             'name': name,
             'stars': stars
           });
 
-          // Clear form
-          document.getElementById('name').value = "";
-          document.getElementById('message').value = "";
         } else {
           responseMsg.textContent = "❌ " + data.message;
           responseMsg.style.color = "red";
@@ -296,5 +292,14 @@
         responseMsg.style.color = "red";
         console.error(err);
       }
-    })
+    }
+
+    const submitBtn = document.getElementById("submitBtn");
+    // Support both click and touch devices
+    submitBtn.addEventListener("click", submitRating);
+    submitBtn.addEventListener("touchstart", submitRating);
+  </script>
+</body>
+</html>
+
 
