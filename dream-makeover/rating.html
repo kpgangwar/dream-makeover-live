@@ -1,8 +1,8 @@
 
 
 
-<!-- 
-<!DOCTYPE html>
+
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -145,7 +145,8 @@
     }
   </script>
 </body>
-</html> -->
+</html>  -->
+
 
 
 
@@ -156,26 +157,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XWZ3PDFPVN"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-XWZ3PDFPVN');
-  </script>
-
   <title>Dream Makeover — Rate Us</title>
+
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       font-family: "Poppins", sans-serif;
       background: linear-gradient(135deg, #f6d5f7 0%, #fbe9d7 100%);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
       margin: 0;
-      padding: 10px;
+      padding: 20px;
+      min-height: 100%;         /* FIX 1 */
     }
 
     .card {
@@ -183,14 +177,9 @@
       border-radius: 20px;
       box-shadow: 0 8px 20px rgba(0,0,0,0.1);
       padding: 30px;
-      width: 350px;
-      max-width: 100%;
+      max-width: 350px;
+      margin: 20px auto;
       text-align: center;
-      transition: all 0.3s ease;
-    }
-
-    .card:hover {
-      transform: scale(1.02);
     }
 
     h2 {
@@ -201,7 +190,7 @@
     input, textarea, select, button {
       width: 100%;
       margin-top: 10px;
-      padding: 10px;
+      padding: 12px;
       border-radius: 10px;
       border: 1px solid #ddd;
       font-size: 15px;
@@ -219,22 +208,15 @@
       cursor: pointer;
       transition: 0.3s;
     }
-
-    button:hover {
-      background: linear-gradient(45deg, #ff85c1, #ffc0cb);
-    }
-
-    .message {
-      margin-top: 15px;
-      font-weight: bold;
-    }
   </style>
 </head>
 <body>
+
   <div class="card">
     <h2>🌸 Rate Dream Makeover 💅</h2>
 
-    <input type="text" id="name" placeholder="Your Name" />
+    <input type="text" id="name" placeholder="Your Name" required />
+    
     <select id="stars">
       <option value="5">⭐⭐⭐⭐⭐ - Excellent</option>
       <option value="4">⭐⭐⭐⭐ - Very Good</option>
@@ -242,11 +224,14 @@
       <option value="2">⭐⭐ - Fair</option>
       <option value="1">⭐ - Poor</option>
     </select>
-    <textarea id="message" rows="4" placeholder="Write your feedback..."></textarea>
-    <button id="submitBtn">Submit Rating</button>
 
-    <div class="message" id="responseMsg"></div>
+    <textarea id="message" rows="4" placeholder="Write your feedback..." required></textarea>
+
+    <button onclick="submitRating()">Submit Rating</button>
+
+    <div id="responseMsg" style="margin-top:15px;font-weight:bold;"></div>
   </div>
+
 
   <script>
     async function submitRating() {
@@ -256,14 +241,13 @@
       const responseMsg = document.getElementById('responseMsg');
 
       if (!name || !message) {
-        responseMsg.textContent = "⚠️ Please fill out all fields.";
+        responseMsg.textContent = "⚠️ Please fill all fields.";
         responseMsg.style.color = "red";
         return;
       }
 
       try {
-        // Replace with your deployed backend/public API URL
-        const res = await fetch("https://your-public-backend.com/api/ratings", {
+        const res = await fetch("https://reasonable-achievement-production.up.railway.app/api/ratings", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ name, stars, message })
@@ -272,34 +256,27 @@
         const data = await res.json();
 
         if (data.success) {
-          responseMsg.textContent = "✅ " + data.message;
+          responseMsg.textContent = "✅ Rating submitted successfully!";
           responseMsg.style.color = "green";
           document.getElementById('name').value = "";
           document.getElementById('message').value = "";
-
-          // GA4 Event Tracking
-          gtag('event', 'rating_submitted', {
-            'name': name,
-            'stars': stars
-          });
-
         } else {
           responseMsg.textContent = "❌ " + data.message;
           responseMsg.style.color = "red";
         }
-      } catch (err) {
-        responseMsg.textContent = "❌ Server not reachable. Please try again later.";
+
+      } catch (error) {
+        responseMsg.textContent = "❌ Unable to reach server.";
         responseMsg.style.color = "red";
-        console.error(err);
       }
     }
-
-    const submitBtn = document.getElementById("submitBtn");
-    // Support both click and touch devices
-    submitBtn.addEventListener("click", submitRating);
-    submitBtn.addEventListener("touchstart", submitRating);
   </script>
+
 </body>
 </html>
+
+
+
+
 
 
