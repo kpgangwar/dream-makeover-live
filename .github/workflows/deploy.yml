@@ -9,11 +9,12 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
+
+      - name: Install Railway CLI
+        run: curl -sSL https://railway.app/install.sh | sh
 
       - name: Deploy to Railway
-        run: |
-          echo "Triggering Railway deployment..."
-          curl -X POST https://api.railway.app/v1/projects/9b8dfc44-d272-4587-af36-9d72680f09af/deployments \
-          -H "Authorization: Bearer 43f66e39-3961-4026-9a4f-ed804eb26e21"
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+        run: railway up --yes
