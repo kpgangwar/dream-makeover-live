@@ -1,0 +1,16 @@
+name: Deploy to Railway
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Deploy to Railway
+        run: |
+          curl -X POST https://api.railway.app/v1/projects/9b8dfc44-d272-4587-af36-9d72680f09af/deployments \
+          -H "Authorization: Bearer 43f66e39-3961-4026-9a4f-ed804eb26e21"
