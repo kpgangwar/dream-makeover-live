@@ -25,8 +25,9 @@ Dream Beauty Parlour, Bareilly, Uttar Pradesh, India
 ## 💎 Developer Info
 Built and maintained by **Krishna Pal (kpgangwar)**  
 🖤 Powered by **HTML, CSS, and JavaScript**  
-📦 Hosted on **Netlify** | Source code on **GitHub**
+📦 Hosted on **Netlify** | Source code on  **GitHub**
 
 ---
 
 > “Elegance begins when you decide to love yourself first.” 💫
+test
