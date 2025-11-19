@@ -149,8 +149,6 @@
 
 
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -176,6 +174,7 @@
       align-items: center;
       height: 100vh;
       margin: 0;
+      padding: 10px;
     }
 
     .card {
@@ -184,7 +183,7 @@
       box-shadow: 0 8px 20px rgba(0,0,0,0.1);
       padding: 30px;
       width: 350px;
-      max-width: 90%; /* Responsive tweak */
+      max-width: 100%;
       text-align: center;
       transition: all 0.3s ease;
     }
@@ -234,7 +233,7 @@
   <div class="card">
     <h2>🌸 Rate Dream Makeover 💅</h2>
 
-    <input type="text" id="name" placeholder="Your Name" required />
+    <input type="text" id="name" placeholder="Your Name" />
     <select id="stars">
       <option value="5">⭐⭐⭐⭐⭐ - Excellent</option>
       <option value="4">⭐⭐⭐⭐ - Very Good</option>
@@ -242,7 +241,7 @@
       <option value="2">⭐⭐ - Fair</option>
       <option value="1">⭐ - Poor</option>
     </select>
-    <textarea id="message" rows="4" placeholder="Write your feedback..." required></textarea>
+    <textarea id="message" rows="4" placeholder="Write your feedback..."></textarea>
     <button id="submitBtn">Submit Rating</button>
 
     <div class="message" id="responseMsg"></div>
@@ -262,7 +261,7 @@
       }
 
       try {
-        // Replace localhost with your deployed server URL
+        // Replace with your deployed backend/public API URL
         const res = await fetch("https://yourdomain.com/api/ratings", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -289,7 +288,7 @@
 
     const submitBtn = document.getElementById("submitBtn");
     submitBtn.addEventListener("click", submitRating);
-    submitBtn.addEventListener("touchstart", submitRating); // Touch devices support
+    submitBtn.addEventListener("touchstart", submitRating); // Touch support for mobile
   </script>
 </body>
 </html>
