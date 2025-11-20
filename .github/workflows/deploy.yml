@@ -11,10 +11,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install Railway CLI
-        run: curl -sSL https://railway.app/install.sh | sh
-
       - name: Deploy to Railway
-        env:
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-        run: railway up --yes
+        uses: railwayapp/cli-action@v1
+        with:
+          apiKey: ${{ secrets.RAILWAY_TOKEN }}
+          projectId: 9b8dfc44-d272-4587-af36-9d72680f09af      # Replace with your Railway project ID
+          environment: production            # Or your environment name
