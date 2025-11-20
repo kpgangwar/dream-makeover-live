@@ -16,6 +16,6 @@ jobs:
         run: curl -fsSL https://raw.githubusercontent.com/railwayapp/cli/master/install.sh | sh
 
       - name: Deploy to Railway
-        run: railway up -- --yes
+        run: railway up -- --yes --service reasonable-achievement
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
