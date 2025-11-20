@@ -150,13 +150,11 @@
 
 
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Dream Makeover — Rate Us</title>
 
   <!-- GA4 Tracking -->
@@ -165,57 +163,41 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'G-XWZ3PDFPVN'); // Replace with your GA4 Measurement ID
+    gtag('config', 'G-XWZ3PDFPVN');
   </script>
 
   <style>
     * { box-sizing: border-box; }
-
     body {
       font-family: "Poppins", sans-serif;
       background: linear-gradient(135deg, #f6d5f7 0%, #fbe9d7 100%);
-      margin: 0;
-      padding: 20px;
-      min-height: 100vh;
+      margin: 0; padding: 20px; min-height: 100vh;
+      display: flex; justify-content: center; align-items: center;
     }
-
     .card {
-      background: white;
-      border-radius: 20px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-      padding: 30px;
-      max-width: 350px;
-      margin: 20px auto;
-      text-align: center;
+      background: white; border-radius: 20px; box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      padding: 30px; max-width: 350px; width: 100%; text-align: center;
+      transition: transform 0.3s ease;
     }
-
-    h2 { color: #ff69b4; margin-bottom: 10px; }
-
+    .card:hover { transform: scale(1.02); }
+    h2 { color: #ff69b4; margin-bottom: 15px; }
     input, textarea, select, button {
-      width: 100%;
-      margin-top: 10px;
-      padding: 12px;
-      border-radius: 10px;
-      border: 1px solid #ddd;
-      font-size: 15px;
+      width: 100%; margin-top: 10px; padding: 12px; border-radius: 10px;
+      border: 1px solid #ddd; font-size: 15px;
     }
-
     textarea { resize: none; }
-
     button {
-      background: linear-gradient(45deg, #ff69b4, #ffb6c1);
-      color: white;
-      border: none;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.3s;
+      background: linear-gradient(45deg, #ff69b4, #ffb6c1); color: white;
+      border: none; font-weight: bold; cursor: pointer; transition: 0.3s;
     }
-
-    button:hover {
-      background: linear-gradient(45deg, #ff85c1, #ffc0cb);
+    button:hover { background: linear-gradient(45deg, #ff85c1, #ffc0cb); }
+    .message { margin-top: 15px; font-weight: bold; min-height: 20px; }
+    .loader {
+      border: 4px solid #f3f3f3; border-top: 4px solid #ff69b4;
+      border-radius: 50%; width: 24px; height: 24px; animation: spin 1s linear infinite;
+      display: inline-block; vertical-align: middle; margin-left: 10px;
     }
-
-    #responseMsg { margin-top: 15px; font-weight: bold; }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
   </style>
 </head>
 <body>
@@ -224,7 +206,6 @@
     <h2>🌸 Rate Dream Makeover 💅</h2>
 
     <input type="text" id="name" placeholder="Your Name" required />
-
     <select id="stars">
       <option value="5">⭐⭐⭐⭐⭐ - Excellent</option>
       <option value="4">⭐⭐⭐⭐ - Very Good</option>
@@ -232,20 +213,16 @@
       <option value="2">⭐⭐ - Fair</option>
       <option value="1">⭐ - Poor</option>
     </select>
-
     <textarea id="message" rows="4" placeholder="Write your feedback..." required></textarea>
 
     <button onclick="submitRating()">Submit Rating</button>
-
-    <div id="responseMsg"></div>
+    <div class="message" id="responseMsg"></div>
   </div>
 
   <script>
-    const BASE_URL = "https://reasonable-achievement-production.up.railway.app";
-
     async function submitRating() {
       const name = document.getElementById('name').value.trim();
-      const stars = parseInt(document.getElementById('stars').value);
+      const stars = document.getElementById('stars').value;
       const message = document.getElementById('message').value.trim();
       const responseMsg = document.getElementById('responseMsg');
 
@@ -255,8 +232,12 @@
         return;
       }
 
+      // Show loader
+      responseMsg.innerHTML = "Submitting <span class='loader'></span>";
+      responseMsg.style.color = "#000";
+
       try {
-        const res = await fetch(`${BASE_URL}/api/ratings`, {
+        const res = await fetch("https://reasonable-achievement-production.up.railway.app/api/ratings", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ name, stars, message })
@@ -269,20 +250,12 @@
           responseMsg.style.color = "green";
           document.getElementById('name').value = "";
           document.getElementById('message').value = "";
-
-          // GA4 Event
-          gtag('event', 'rating_submitted', {
-            rating_name: name,
-            rating_stars: stars
-          });
-
         } else {
           responseMsg.textContent = "❌ " + data.message;
           responseMsg.style.color = "red";
         }
-
       } catch (err) {
-        responseMsg.textContent = "❌ Unable to reach server.";
+        responseMsg.textContent = "❌ Unable to reach server. Try again later.";
         responseMsg.style.color = "red";
         console.error(err);
       }
