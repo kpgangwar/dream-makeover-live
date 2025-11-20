@@ -149,7 +149,6 @@
 
 
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -157,7 +156,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dream Makeover — Rate Us</title>
 
-  <!-- GA4 Tracking -->
+  <!-- GA4 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XWZ3PDFPVN"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -167,37 +166,61 @@
   </script>
 
   <style>
-    * { box-sizing: border-box; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: "Poppins", sans-serif;
       background: linear-gradient(135deg, #f6d5f7 0%, #fbe9d7 100%);
-      margin: 0; padding: 20px; min-height: 100vh;
-      display: flex; justify-content: center; align-items: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
     }
     .card {
-      background: white; border-radius: 20px; box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-      padding: 30px; max-width: 350px; width: 100%; text-align: center;
-      transition: transform 0.3s ease;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      padding: 30px;
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
     }
-    .card:hover { transform: scale(1.02); }
     h2 { color: #ff69b4; margin-bottom: 15px; }
     input, textarea, select, button {
-      width: 100%; margin-top: 10px; padding: 12px; border-radius: 10px;
-      border: 1px solid #ddd; font-size: 15px;
+      width: 100%;
+      margin-top: 10px;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      font-size: 15px;
     }
     textarea { resize: none; }
     button {
-      background: linear-gradient(45deg, #ff69b4, #ffb6c1); color: white;
-      border: none; font-weight: bold; cursor: pointer; transition: 0.3s;
+      background: linear-gradient(45deg, #ff69b4, #ffb6c1);
+      color: white;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
     }
-    button:hover { background: linear-gradient(45deg, #ff85c1, #ffc0cb); }
-    .message { margin-top: 15px; font-weight: bold; min-height: 20px; }
-    .loader {
-      border: 4px solid #f3f3f3; border-top: 4px solid #ff69b4;
-      border-radius: 50%; width: 24px; height: 24px; animation: spin 1s linear infinite;
-      display: inline-block; vertical-align: middle; margin-left: 10px;
+    button:hover {
+      background: linear-gradient(45deg, #ff85c1, #ffc0cb);
     }
-    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    .message {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    .ratings-list {
+      margin-top: 20px;
+      text-align: left;
+    }
+    .rating-item {
+      border-bottom: 1px solid #eee;
+      padding: 10px 0;
+    }
+    .rating-stars { color: #ff69b4; }
+    .rating-name { font-weight: bold; }
+    .rating-message { margin: 5px 0 0 0; }
   </style>
 </head>
 <body>
@@ -206,6 +229,7 @@
     <h2>🌸 Rate Dream Makeover 💅</h2>
 
     <input type="text" id="name" placeholder="Your Name" required />
+    
     <select id="stars">
       <option value="5">⭐⭐⭐⭐⭐ - Excellent</option>
       <option value="4">⭐⭐⭐⭐ - Very Good</option>
@@ -213,13 +237,47 @@
       <option value="2">⭐⭐ - Fair</option>
       <option value="1">⭐ - Poor</option>
     </select>
+
     <textarea id="message" rows="4" placeholder="Write your feedback..." required></textarea>
 
     <button onclick="submitRating()">Submit Rating</button>
     <div class="message" id="responseMsg"></div>
+
+    <div class="ratings-list" id="ratingsList"></div>
   </div>
 
   <script>
+    const API_URL = "https://reasonable-achievement-production.up.railway.app/api/ratings";
+
+    // Fetch and display all ratings
+    async function fetchRatings() {
+      try {
+        const res = await fetch(API_URL);
+        const ratings = await res.json();
+        const ratingsList = document.getElementById('ratingsList');
+        ratingsList.innerHTML = "";
+
+        if (ratings.length === 0) {
+          ratingsList.innerHTML = "<p>No ratings yet.</p>";
+          return;
+        }
+
+        ratings.forEach(r => {
+          const div = document.createElement('div');
+          div.classList.add('rating-item');
+          div.innerHTML = `
+            <div class="rating-stars">${'⭐'.repeat(r.stars)}</div>
+            <div class="rating-name">${r.name}</div>
+            <div class="rating-message">${r.message}</div>
+          `;
+          ratingsList.appendChild(div);
+        });
+      } catch (error) {
+        console.error("Failed to fetch ratings:", error);
+      }
+    }
+
+    // Submit rating
     async function submitRating() {
       const name = document.getElementById('name').value.trim();
       const stars = document.getElementById('stars').value;
@@ -232,17 +290,12 @@
         return;
       }
 
-      // Show loader
-      responseMsg.innerHTML = "Submitting <span class='loader'></span>";
-      responseMsg.style.color = "#000";
-
       try {
-        const res = await fetch("https://reasonable-achievement-production.up.railway.app/api/ratings", {
+        const res = await fetch(API_URL, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ name, stars, message })
         });
-
         const data = await res.json();
 
         if (data.success) {
@@ -250,17 +303,20 @@
           responseMsg.style.color = "green";
           document.getElementById('name').value = "";
           document.getElementById('message').value = "";
+          fetchRatings(); // Refresh the ratings list
         } else {
           responseMsg.textContent = "❌ " + data.message;
           responseMsg.style.color = "red";
         }
-      } catch (err) {
-        responseMsg.textContent = "❌ Unable to reach server. Try again later.";
+      } catch (error) {
+        responseMsg.textContent = "❌ Unable to reach server.";
         responseMsg.style.color = "red";
-        console.error(err);
+        console.error(error);
       }
     }
-  </script>
 
+    // Initial fetch
+    fetchRatings();
+  </script>
 </body>
 </html>

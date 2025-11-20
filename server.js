@@ -92,24 +92,22 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
 
-// 🌸 Load environment variables
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// 🧩 Middleware
-app.use(cors());
+// -------------------- MIDDLEWARE --------------------
+app.use(cors({ origin: "*" })); // 🔹 Allow all origins for mobile requests
 app.use(express.json());
 
-// 🌐 MongoDB Connection
+// -------------------- MONGODB CONNECTION --------------------
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => console.log("✅ MongoDB Connected Successfully"))
   .catch((err) => console.error("❌ MongoDB Connection Failed:", err));
 
-
-// ⭐ Rating Schema
+// -------------------- SCHEMA & MODEL --------------------
 const ratingSchema = new mongoose.Schema({
   name: { type: String, required: true, trim: true },
   stars: { type: Number, required: true, min: 1, max: 5 },
@@ -119,22 +117,22 @@ const ratingSchema = new mongoose.Schema({
 
 const Rating = mongoose.model("Rating", ratingSchema);
 
+// -------------------- ROUTES --------------------
 
-// 🏠 Default Route
+// Default Route
 app.get("/", (req, res) => {
   res.send("🌸 Dream Makeover Rating Server Running 💅");
 });
 
-
-// ⭐ POST: Save new rating
+// POST: Save new rating
 app.post("/api/ratings", async (req, res) => {
   try {
     const { name, stars, message } = req.body;
 
-    if (!name || !stars) {
+    if (!name || !stars || !message) {
       return res.status(400).json({
         success: false,
-        message: "⚠️ Name and stars are required."
+        message: "⚠️ Name, stars, and message are required.",
       });
     }
 
@@ -143,20 +141,18 @@ app.post("/api/ratings", async (req, res) => {
 
     res.status(201).json({
       success: true,
-      message: "⭐ Thank you for your feedback!"
+      message: "⭐ Thank you for your feedback!",
     });
-
   } catch (error) {
     console.error("❌ Error saving rating:", error);
     res.status(500).json({
       success: false,
-      message: "❌ Server error while saving rating."
+      message: "❌ Server error while saving rating.",
     });
   }
 });
 
-
-// ⭐ GET: Fetch all ratings
+// GET: Fetch all ratings
 app.get("/api/ratings", async (req, res) => {
   try {
     const allRatings = await Rating.find().sort({ date: -1 });
@@ -165,13 +161,12 @@ app.get("/api/ratings", async (req, res) => {
     console.error("❌ Error fetching ratings:", error);
     res.status(500).json({
       success: false,
-      message: "❌ Server error while fetching ratings."
+      message: "❌ Server error while fetching ratings.",
     });
   }
 });
 
-
-// 🚀 Start Server
+// -------------------- START SERVER --------------------
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
