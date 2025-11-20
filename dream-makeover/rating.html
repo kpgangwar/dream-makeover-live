@@ -159,17 +159,24 @@
 
   <title>Dream Makeover — Rate Us</title>
 
+  <!-- GA4 Tracking -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XWZ3PDFPVN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XWZ3PDFPVN'); // Replace with your GA4 Measurement ID
+  </script>
+
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       font-family: "Poppins", sans-serif;
       background: linear-gradient(135deg, #f6d5f7 0%, #fbe9d7 100%);
       margin: 0;
       padding: 20px;
-      min-height: 100%;         /* FIX 1 */
+      min-height: 100vh;
     }
 
     .card {
@@ -182,10 +189,7 @@
       text-align: center;
     }
 
-    h2 {
-      color: #ff69b4;
-      margin-bottom: 10px;
-    }
+    h2 { color: #ff69b4; margin-bottom: 10px; }
 
     input, textarea, select, button {
       width: 100%;
@@ -196,9 +200,7 @@
       font-size: 15px;
     }
 
-    textarea {
-      resize: none;
-    }
+    textarea { resize: none; }
 
     button {
       background: linear-gradient(45deg, #ff69b4, #ffb6c1);
@@ -208,6 +210,12 @@
       cursor: pointer;
       transition: 0.3s;
     }
+
+    button:hover {
+      background: linear-gradient(45deg, #ff85c1, #ffc0cb);
+    }
+
+    #responseMsg { margin-top: 15px; font-weight: bold; }
   </style>
 </head>
 <body>
@@ -216,7 +224,7 @@
     <h2>🌸 Rate Dream Makeover 💅</h2>
 
     <input type="text" id="name" placeholder="Your Name" required />
-    
+
     <select id="stars">
       <option value="5">⭐⭐⭐⭐⭐ - Excellent</option>
       <option value="4">⭐⭐⭐⭐ - Very Good</option>
@@ -229,14 +237,15 @@
 
     <button onclick="submitRating()">Submit Rating</button>
 
-    <div id="responseMsg" style="margin-top:15px;font-weight:bold;"></div>
+    <div id="responseMsg"></div>
   </div>
 
-
   <script>
+    const BASE_URL = "https://reasonable-achievement-production.up.railway.app";
+
     async function submitRating() {
       const name = document.getElementById('name').value.trim();
-      const stars = document.getElementById('stars').value;
+      const stars = parseInt(document.getElementById('stars').value);
       const message = document.getElementById('message').value.trim();
       const responseMsg = document.getElementById('responseMsg');
 
@@ -247,7 +256,7 @@
       }
 
       try {
-        const res = await fetch("https://reasonable-achievement-production.up.railway.app/api/ratings", {
+        const res = await fetch(`${BASE_URL}/api/ratings`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ name, stars, message })
@@ -260,23 +269,25 @@
           responseMsg.style.color = "green";
           document.getElementById('name').value = "";
           document.getElementById('message').value = "";
+
+          // GA4 Event
+          gtag('event', 'rating_submitted', {
+            rating_name: name,
+            rating_stars: stars
+          });
+
         } else {
           responseMsg.textContent = "❌ " + data.message;
           responseMsg.style.color = "red";
         }
 
-      } catch (error) {
+      } catch (err) {
         responseMsg.textContent = "❌ Unable to reach server.";
         responseMsg.style.color = "red";
+        console.error(err);
       }
     }
   </script>
 
 </body>
 </html>
-
-
-
-
-
-

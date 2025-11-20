@@ -122,7 +122,7 @@ const Rating = mongoose.model("Rating", ratingSchema);
 
 // 🏠 Default Route
 app.get("/", (req, res) => {
-  res.send("🌸 Dream Makeover Rating Server Running true true💅");
+  res.send("🌸 Dream Makeover Rating Server Running 💅");
 });
 
 
