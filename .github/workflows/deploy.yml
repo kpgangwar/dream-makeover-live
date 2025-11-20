@@ -15,6 +15,11 @@ jobs:
       - name: Install Railway CLI
         run: curl -fsSL https://raw.githubusercontent.com/railwayapp/cli/master/install.sh | sh
 
+      - name: Link Railway Project
+        run: railway link <YOUR_PROJECT_ID>
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+
       - name: Deploy to Railway
         run: railway up
         env:
